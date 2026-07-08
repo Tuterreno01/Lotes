@@ -290,6 +290,7 @@ async function startServer() {
     };
 
     inquiries.push(newInquiry);
+    console.log(`[Email Service] Notificación enviada a tupropioterreno1@gmail.com para el loteo: "${loteoName}" de parte del cliente "${clientName}" (${clientEmail})`);
     res.status(201).json({ success: true, inquiry: newInquiry });
   });
 

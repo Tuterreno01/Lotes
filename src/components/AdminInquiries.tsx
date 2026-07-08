@@ -4,7 +4,7 @@
  */
 
 import { Inquiry } from '../types';
-import { Mail, Phone, Calendar, User, Eye, Compass, HelpCircle } from 'lucide-react';
+import { Mail, Phone, Calendar, User, Eye, Compass, HelpCircle, Paperclip } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AdminInquiriesProps {
@@ -86,6 +86,32 @@ export default function AdminInquiries({ inquiries, onRefresh }: AdminInquiriesP
                 <div className="p-3 bg-white border border-slate-200/60 rounded-lg text-xs text-slate-600 italic leading-relaxed">
                   "{inquiry.message}"
                 </div>
+
+                {/* File Attachment in lead card */}
+                {inquiry.attachment && (
+                  <div className="mt-3 p-2 bg-emerald-50 border border-emerald-100/60 rounded-lg flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2 overflow-hidden">
+                      <Paperclip className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <div className="text-left overflow-hidden">
+                        <p className="font-bold text-emerald-950 truncate max-w-[130px] sm:max-w-[200px]" title={inquiry.attachment.name}>
+                          {inquiry.attachment.name}
+                        </p>
+                        <p className="text-[9px] text-emerald-700 font-mono">
+                          {(inquiry.attachment.size / 1024).toFixed(0)} KB • {inquiry.attachment.type.split('/')[1]?.toUpperCase() || 'Archivo'}
+                        </p>
+                      </div>
+                    </div>
+                    {inquiry.attachment.dataUrl && (
+                      <a 
+                        href={inquiry.attachment.dataUrl} 
+                        download={inquiry.attachment.name}
+                        className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[9px] rounded-md transition-all shrink-0 cursor-pointer text-center"
+                      >
+                        Descargar
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Action Simulation / Status */}

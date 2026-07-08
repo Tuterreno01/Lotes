@@ -274,6 +274,9 @@ export default function LoteoModal({ loteo, onClose, onSubmitInquiry }: LoteoMod
                   <p className="text-xs text-emerald-700 mt-2 leading-relaxed">
                     Hemos registrado tu contacto correctamente para el loteo <strong>{loteo.name}</strong>. Un especialista se comunicará vía WhatsApp o mail para enviarte planos de disponibilidad y promociones exclusivas.
                   </p>
+                  <p className="text-[10px] text-slate-500 mt-3 leading-relaxed">
+                    Un asesor especializado te responderá a la brevedad con los planos oficiales de disponibilidad.
+                  </p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3.5">

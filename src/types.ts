@@ -80,6 +80,12 @@ export interface Inquiry {
   clientPhone: string;
   message: string;
   timestamp: string;
+  attachment?: {
+    name: string;
+    size: number;
+    type: string;
+    dataUrl?: string;
+  };
 }
 
 export interface ChatMessage {

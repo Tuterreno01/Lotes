@@ -15,7 +15,8 @@ import AdminInquiries from './components/AdminInquiries';
 import SponsorBanner from './components/SponsorBanner';
 import AdminBanners from './components/AdminBanners';
 import AdminLoteos from './components/AdminLoteos';
-import { Compass, Sparkles, Calculator, Layers, ClipboardList, Info, HelpCircle, Megaphone, Globe, Briefcase, ChevronRight, Home, Lock, Unlock, KeyRound, Eye, EyeOff, LogOut, ShieldCheck } from 'lucide-react';
+import DeveloperContact from './components/DeveloperContact';
+import { Compass, Sparkles, Calculator, Layers, ClipboardList, Info, HelpCircle, Megaphone, Globe, Briefcase, ChevronRight, Home, Lock, Unlock, KeyRound, Eye, EyeOff, LogOut, ShieldCheck, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [banners, setBanners] = useState<AdBanner[]>([]);
   const [selectedLoteo, setSelectedLoteo] = useState<Loteo | null>(null);
-  const [activeTab, setActiveTab] = useState<'loteos' | 'chat' | 'simulator' | 'inquiries'>('loteos');
+  const [activeTab, setActiveTab] = useState<'loteos' | 'chat' | 'simulator' | 'inquiries' | 'contacto'>('loteos');
   const [adminSubTab, setAdminSubTab] = useState<'leads' | 'loteos' | 'banners'>('leads');
   
   // Admin Authentication State
@@ -259,6 +260,16 @@ export default function App() {
               >
                 <Layers className="w-3.5 h-3.5" />
                 Lotes
+              </button>
+              <button
+                onClick={() => setActiveTab('contacto')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'contacto' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-950'
+                }`}
+                id="tab-nav-contacto"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                Contacto
               </button>
               <button
                 onClick={() => setActiveTab('inquiries')}
@@ -597,6 +608,17 @@ export default function App() {
             </div>
           )}
 
+          {/* TAB 5: CONTACTO DEVELOPERS */}
+          {activeTab === 'contacto' && (
+            <div className="space-y-6">
+              <div className="pb-4 border-b border-slate-200">
+                <h2 className="text-2xl font-sans font-extrabold text-slate-900 tracking-tight">Contacto para Desarrolladores</h2>
+                <p className="text-sm text-slate-500">¿Querés publicar tu loteo en LoteAR? Envianos los detalles de tu desarrollo técnico o comercial y nos contactamos en minutos.</p>
+              </div>
+              <DeveloperContact onSubmitInquiry={handleInquirySubmit} />
+            </div>
+          )}
+
         </div>
       </main>
 
@@ -615,6 +637,7 @@ export default function App() {
             
             <div className="flex gap-4 text-xs font-semibold text-slate-300">
               <button onClick={() => setActiveTab('loteos')} className="hover:text-emerald-400 cursor-pointer">Lotes</button>
+              <button onClick={() => setActiveTab('contacto')} className="hover:text-emerald-400 cursor-pointer">Contacto</button>
               <button onClick={() => setActiveTab('inquiries')} className="hover:text-emerald-400 cursor-pointer">Panel Admin</button>
             </div>
           </div>

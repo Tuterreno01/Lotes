@@ -234,7 +234,7 @@ export default function App() {
           <div className="flex justify-between h-16 items-center">
             
             {/* Logo */}
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActiveTab('loteos')}>
+            <div className="flex items-center gap-2 cursor-pointer notranslate" translate="no" onClick={() => setActiveTab('loteos')}>
               <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-md">
                 <Compass className="w-6 h-6 animate-spin-slow" />
               </div>

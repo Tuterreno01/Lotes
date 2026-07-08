@@ -70,7 +70,7 @@ export default function LoteoFilters({ filters, onChange, onClear, loteos }: Lot
 
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-6">
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-20 z-20">
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
         <h3 className="font-sans font-bold text-slate-900 text-lg flex items-center gap-2">
           Filtrar Lotes

@@ -38,7 +38,7 @@ export default function Hero({ onSearchClick, totalLoteos }: HeroProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold tracking-tight text-slate-900 leading-tight"
           >
-            Tu terreno ideal en <span className="text-emerald-600">LoteAR</span>
+            Tu terreno ideal en <span className="text-emerald-600 notranslate" translate="no">LoteAR</span>
           </motion.h1>
 
           <motion.p

@@ -1,0 +1,6 @@
+{
+  "name": "LoteAR",
+  "description": "Plataforma premium para explorar, comparar y recibir asesoramiento inteligente sobre loteos inmobiliarios en Rosario, Funes, Roldán y toda la región.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

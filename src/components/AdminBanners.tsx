@@ -46,7 +46,10 @@ export default function AdminBanners({ banners, onRefresh }: AdminBannersProps) 
       const method = editingBannerId ? 'PUT' : 'POST';
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-Admin-Password': localStorage.getItem('lotear_admin_password') || ''
+        },
         body: JSON.stringify(newBanner)
       });
 
@@ -97,6 +100,9 @@ export default function AdminBanners({ banners, onRefresh }: AdminBannersProps) 
     try {
       const res = await fetch(`/api/banners/${id}`, {
         method: 'DELETE',
+        headers: {
+          'X-Admin-Password': localStorage.getItem('lotear_admin_password') || ''
+        }
       });
       if (res.ok) {
         setSuccessMsg(`Anuncio "${title}" eliminado con éxito.`);

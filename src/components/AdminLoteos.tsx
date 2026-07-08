@@ -100,7 +100,10 @@ export default function AdminLoteos({ loteos, onRefresh }: AdminLoteosProps) {
       const method = editingLoteoId ? 'PUT' : 'POST';
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-Admin-Password': localStorage.getItem('lotear_admin_password') || ''
+        },
         body: JSON.stringify(payload),
       });
 
@@ -180,6 +183,9 @@ export default function AdminLoteos({ loteos, onRefresh }: AdminLoteosProps) {
     try {
       const res = await fetch(`/api/loteos/${id}`, {
         method: 'DELETE',
+        headers: {
+          'X-Admin-Password': localStorage.getItem('lotear_admin_password') || ''
+        }
       });
       if (res.ok) {
         setSuccessMsg(`Loteo "${name}" eliminado correctamente.`);

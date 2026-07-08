@@ -47,6 +47,26 @@ async function startServer() {
 
   app.use(express.json());
 
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "loteArAdmin2026";
+
+  // Middleware to verify admin password header
+  const verifyAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const pwd = req.headers["x-admin-password"];
+    if (!pwd || pwd !== ADMIN_PASSWORD) {
+      return res.status(401).json({ error: "Acceso no autorizado. Contraseña incorrecta." });
+    }
+    next();
+  };
+
+  // API: Verify Admin Password
+  app.post("/api/admin/verify", (req, res) => {
+    const { password } = req.body;
+    if (password === ADMIN_PASSWORD) {
+      return res.json({ success: true });
+    }
+    return res.status(401).json({ error: "Contraseña incorrecta." });
+  });
+
   // 1. API: Health Check
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", time: new Date().toISOString() });
@@ -58,7 +78,7 @@ async function startServer() {
   });
 
   // 2b. API: Add a new loteo manually
-  app.post("/api/loteos", (req, res) => {
+  app.post("/api/loteos", verifyAdmin, (req, res) => {
     const { name, location, stage, scope, priceUSD, sizeMin, sizeMax, distanceFromRosario, developer, description, longDescription, imageUrl, services, amenities, images } = req.body;
 
     if (!name || !location || !priceUSD || !description) {
@@ -98,7 +118,7 @@ async function startServer() {
   });
 
   // 2c. API: Update a loteo's details
-  app.put("/api/loteos/:id", (req, res) => {
+  app.put("/api/loteos/:id", verifyAdmin, (req, res) => {
     const { id } = req.params;
     const index = loteosList.findIndex(l => l.id === id);
     if (index === -1) {
@@ -136,7 +156,7 @@ async function startServer() {
   });
 
   // 2d. API: Delete a loteo
-  app.delete("/api/loteos/:id", (req, res) => {
+  app.delete("/api/loteos/:id", verifyAdmin, (req, res) => {
     const { id } = req.params;
     const index = loteosList.findIndex(l => l.id === id);
     if (index === -1) {
@@ -147,7 +167,7 @@ async function startServer() {
   });
 
   // 3. API: Get inquiries (To show submitted inquiries in a client dashboard tab)
-  app.get("/api/inquiries", (req, res) => {
+  app.get("/api/inquiries", verifyAdmin, (req, res) => {
     res.json(inquiries);
   });
 
@@ -157,7 +177,7 @@ async function startServer() {
   });
 
   // 3bb. API: Add a new banner manually
-  app.post("/api/banners", (req, res) => {
+  app.post("/api/banners", verifyAdmin, (req, res) => {
     const { title, advertiserName, imageUrl, targetUrl, slot } = req.body;
 
     if (!title || !advertiserName || !imageUrl || !slot) {
@@ -184,7 +204,7 @@ async function startServer() {
   });
 
   // 3bc2. API: Update a banner's details
-  app.put("/api/banners/:id", (req, res) => {
+  app.put("/api/banners/:id", verifyAdmin, (req, res) => {
     const { id } = req.params;
     const index = banners.findIndex(b => b.id === id);
     if (index === -1) {
@@ -212,7 +232,7 @@ async function startServer() {
   });
 
   // 3bc3. API: Delete a banner
-  app.delete("/api/banners/:id", (req, res) => {
+  app.delete("/api/banners/:id", verifyAdmin, (req, res) => {
     const { id } = req.params;
     const index = banners.findIndex(b => b.id === id);
     if (index === -1) {
